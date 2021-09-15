@@ -4,7 +4,7 @@ from django.db.models.fields import DateTimeField
 
 
 class UserManager(BaseUserManager):
-	def create_user(self,username, email,f_name,l_name,dob,mobile, password=None):
+	def create_user(self,username, email,first_name,last_name,dob,mobile, password=None):
 		if not email:
 			raise ValueError('Users must have an email address')
 		if not username:
@@ -13,8 +13,8 @@ class UserManager(BaseUserManager):
 		user = self.model(
             username=username,
 			email=self.normalize_email(email),
-            f_name=f_name,
-            l_name=l_name,
+            first_name=first_name,
+            last_name=last_name,
             dob=dob,
             mobile=mobile,
 		)
@@ -23,12 +23,12 @@ class UserManager(BaseUserManager):
 		user.save(using=self._db)
 		return user
 
-	def create_superuser(self, username, email,f_name,l_name,dob,mobile, password):
+	def create_superuser(self, username, email,first_name,last_name,dob,mobile, password):
 		user = self.create_user(
 			username=username,
 			email=self.normalize_email(email),
-            f_name=f_name,
-            l_name=l_name,
+            first_name=first_name,
+            last_name=last_name,
             dob=dob,
             mobile=mobile,
             password=password,
@@ -42,9 +42,9 @@ class UserManager(BaseUserManager):
 class User(AbstractBaseUser):
     email=models.EmailField(max_length=254,unique=True)
     username=models.CharField(max_length=50,unique=True)
-    f_name=models.CharField(max_length=50)
-    l_name=models.CharField(max_length=50)
-    dob=models.DateTimeField()
+    first_name=models.CharField(max_length=50)
+    last_name=models.CharField(max_length=50)
+    dob=models.DateField()
     mobile=models.CharField(max_length=10)
     date_joined=models.DateTimeField(auto_now_add=True)
     last_login=models.DateTimeField(auto_now=True)
@@ -54,7 +54,7 @@ class User(AbstractBaseUser):
     is_superuser=models.BooleanField(default=False)
 
     USERNAME_FIELD='username'
-    REQUIRED_FIELDS=['email','f_name','l_name','dob','mobile']
+    REQUIRED_FIELDS=['email','first_name','last_name','dob','mobile']
 
     objects=UserManager()
 

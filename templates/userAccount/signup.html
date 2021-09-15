@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form method="POST" action="/signup/">
+        {% csrf_token %}
+        {{form.username.label}}
+        {{form.username}}
+        {{form.username.errors}}
+
+        {{form.password1.label}}
+        {{form.password1}}
+        {{form.password1.errors}}
+
+        {{form.password2.label}}
+        {{form.password2}}
+        {{form.password2.errors}}
+
+        {{form.email.label}}
+        {{form.email}}
+        {{form.email.errors}}
+
+        {{form.first_name.label}}
+        {{form.first_name}}
+        {{form.first_name.errors}}
+
+        {{form.last_name.label}}
+        {{form.last_name}}
+        {{form.last_name.errors}}
+
+        {{form.dob.label}}
+        {{form.dob}}
+        {{form.dob.errors}}
+
+        {{form.mobile.label}}
+        {{form.mobile}}
+        {{form.mobile.errors}}
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
