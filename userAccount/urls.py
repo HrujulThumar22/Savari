@@ -6,4 +6,5 @@ urlpatterns = [
     path('login/',views.login,name="user_login"),
     path('signup/',views.signup,name="register_user"),
     path('update/<str:pk>/',views.updateUser,name="update_user"),
+    path('logout',views.handleLogout,name="user_logout")
 ]

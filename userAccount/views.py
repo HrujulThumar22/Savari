@@ -53,3 +53,8 @@ def updateUser(request,pk):
             render(request,'userAccount/update.html',context)
     context={'form':form}
     return render(request,'userAccount/update.html',context)
+
+def handleLogout(request):
+    logout(request)
+    messages.success(request,"Successfully logged out")
+    return redirect('home')
