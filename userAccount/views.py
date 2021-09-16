@@ -1,13 +1,30 @@
-from django.shortcuts import render,HttpResponse
+from django.shortcuts import render,HttpResponse,redirect
 from userAccount.forms import RegisterForm,UpdateForm
 from django.contrib import messages
+from django.contrib.auth import authenticate,login,logout
 
 from .models import User
 # Create your views here.
 def home(request):
     return HttpResponse("Home Page")
 
-def driverSignup(request):
+def login(request):
+    if request.method=="POST":
+        username=request.POST['username']
+        password=request.POST['password']
+        
+        user=authenticate(username=username,password=password)
+        if user is not None:
+            login(request,user)
+            messages.success(request,"Successfully logged in")
+            return redirect('home')
+        else:
+            messages.error(request,'invalid credentials')
+            return redirect('home')
+    
+    return render(request,'userAccount/login.html')
+
+def signup(request):
     if request.method=="POST":
         form=RegisterForm(request.POST)
         if form.is_valid():
