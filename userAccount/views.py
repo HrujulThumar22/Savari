@@ -8,7 +8,7 @@ from .models import User
 def home(request):
     return HttpResponse("Home Page")
 
-def login(request):
+def handleLogin(request):
     if request.method=="POST":
         username=request.POST['username']
         password=request.POST['password']
@@ -29,7 +29,7 @@ def signup(request):
         form=RegisterForm(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponse("hi")
+            return redirect('/user/login')
         else:
             context={'form':form}
             messages.error(request,'There is Error in your information...kindly refill the form')

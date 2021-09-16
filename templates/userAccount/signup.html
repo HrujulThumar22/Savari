@@ -10,7 +10,7 @@
         {% endfor %}
         <h2>Sign Up</h2>
         
-        <form method="POST" action="/signup/">
+        <form method="POST" action="{% url 'register_user' %}">
             {% csrf_token %}
             <div class="row">
                 <div class="col-md-6">
