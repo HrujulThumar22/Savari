@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, User
 from django.db.models.fields import DateTimeField
-
+from django.core.validators import RegexValidator
 
 class UserManager(BaseUserManager):
 	def create_user(self,username, email,first_name,last_name,dob,mobile, password=None):
@@ -45,7 +45,8 @@ class User(AbstractBaseUser):
     first_name=models.CharField(max_length=50)
     last_name=models.CharField(max_length=50)
     dob=models.DateField()
-    mobile=models.CharField(max_length=10)
+    phone_regex = RegexValidator(regex=r'^[0-9]{10}$', message="Phone number must be entered in the format: '999999999'. 10 digits allowed.")
+    mobile = models.CharField(validators=[phone_regex], max_length=17, blank=True)
     date_joined=models.DateTimeField(auto_now_add=True)
     last_login=models.DateTimeField(auto_now=True)
     is_admin=models.BooleanField(default=False)
