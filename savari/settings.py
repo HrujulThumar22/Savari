@@ -34,6 +34,8 @@ INSTALLED_APPS = [
     #Project Apps
 
     'userAccount.apps.UseraccountConfig',
+    'driver.apps.DriverConfig',
+    'city.apps.CityConfig',
     #Default Imports
     'django.contrib.admin',
     'django.contrib.auth',
