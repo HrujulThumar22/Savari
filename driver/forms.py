@@ -3,6 +3,10 @@ from .models import DriverTrip
 from city.models import City
 
 class TripCreationForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(TripCreationForm, self).__init__(*args, **kwargs)
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = 'form-control'
     class Meta:
         model=DriverTrip
         fields=['Starting_City','Destination_City','Trip_Starting_Date','Trip_Starting_Time','Trip_Ending_Date','Trip_Ending_Time']

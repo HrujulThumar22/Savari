@@ -1,13 +1,16 @@
 from driver.forms import TripCreationForm
-from django.shortcuts import redirect, render
-
+from django.shortcuts import get_object_or_404, redirect, render
+from userAccount.models import User
 # Create your views here.
 def StartJourney(request):
     if request.method=="POST":
         form=TripCreationForm(request.POST)
+        user=get_object_or_404(User,pk=request.user.id)
         if form.is_valid():
-            form.save()
-            return redirect('user_home')
+            trip = form.save(commit=False)
+            trip.Driver=user
+            trip.save()
+            return redirect('home')
         else:
             return redirect('driver_start')
     form=TripCreationForm()

@@ -8,8 +8,8 @@ class DriverTrip(models.Model):
     Trip_Starting_Time=models.TimeField()
     Trip_Ending_Date=models.DateField()
     Trip_Ending_Time=models.TimeField()
-    DriverId=models.ForeignKey("userAccount.User", on_delete=models.CASCADE)
+    Driver=models.ForeignKey("userAccount.User", on_delete=models.CASCADE)
     isTripStarted=models.BooleanField(default=False)
 
     def __str__(self) -> str:
-        return self.DriverId.username+':'+self.Starting_City.name+'-'+self.Destination_City.name
+        return self.Driver.username+':'+self.Starting_City.name+'-'+self.Destination_City.name

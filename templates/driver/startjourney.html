@@ -3,12 +3,51 @@
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 {% endblock headScripts %}
 {% block body %}
-    <h2>Start Journey</h2>
-    <form method="post">
-    {% csrf_token %}
-    {{form.as_p}}
-    <button type='submit'>Submit</button>
-    </form>
+    <div class="container my-3 px-5">
+        <h2>Start Journey</h2>
+        <form method="POST" action="{% url 'driver_start' %}">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">{{form.Starting_City.label}}</label>
+                        {{form.Starting_City}}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">{{form.Destination_City.label}}</label>
+                        {{form.Destination_City}}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">{{form.Trip_Starting_Date.label}}</label>
+                        {{form.Trip_Starting_Date}}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">{{form.Trip_Ending_Date.label}}</label>
+                        {{form.Trip_Ending_Date}}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">{{form.Trip_Starting_Time.label}}</label>
+                        {{form.Trip_Starting_Time}}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">{{form.Trip_Ending_Time.label}}</label>
+                        {{form.Trip_Ending_Time}}
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
