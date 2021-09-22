@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, User
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin, User
 from django.db.models.fields import DateTimeField
 from django.core.validators import RegexValidator
 
@@ -39,7 +39,7 @@ class UserManager(BaseUserManager):
 		user.save(using=self._db)
 		return user
 
-class User(AbstractBaseUser):
+class User(AbstractBaseUser,PermissionsMixin):
     email=models.EmailField(max_length=254,unique=True)
     username=models.CharField(max_length=50,unique=True)
     first_name=models.CharField(max_length=50)
