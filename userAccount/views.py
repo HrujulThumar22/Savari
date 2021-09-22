@@ -3,9 +3,11 @@ from django.shortcuts import render,HttpResponse,redirect
 from userAccount.forms import RegisterForm,UpdateForm
 from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
+from django.contrib.auth.decorators import login_required
 
 from .models import User
 # Create your views here.
+@login_required
 def home(request):
     return HttpResponse("Home Page")
 
@@ -41,7 +43,7 @@ def signup(request):
     context={'form':form}
     return render(request,'userAccount/signup.html',context)
 
-
+@login_required
 def updateUser(request,pk):
     user=User.objects.get(id=pk)
     form=UpdateForm(instance=user)
@@ -58,6 +60,7 @@ def updateUser(request,pk):
     context={'form':form}
     return render(request,'userAccount/update.html',context)
 
+@login_required
 def handleLogout(request):
     logout(request)
     messages.success(request,"Successfully logged out")

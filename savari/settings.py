@@ -135,3 +135,5 @@ AUTH_USER_MODEL='userAccount.User'
 MESSAGE_TAGS = {
     messages.ERROR:'danger'
 }
+
+LOGIN_URL='/user/login'
