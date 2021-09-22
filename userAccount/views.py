@@ -1,3 +1,4 @@
+from decorators.decorators import unauthenticated_user
 from django.shortcuts import render,HttpResponse,redirect
 from userAccount.forms import RegisterForm,UpdateForm
 from django.contrib import messages
@@ -8,6 +9,7 @@ from .models import User
 def home(request):
     return HttpResponse("Home Page")
 
+@unauthenticated_user
 def handleLogin(request):
     if request.method=="POST":
         username=request.POST['username']
@@ -24,6 +26,7 @@ def handleLogin(request):
     
     return render(request,'userAccount/login.html')
 
+@unauthenticated_user
 def signup(request):
     if request.method=="POST":
         form=RegisterForm(request.POST)
@@ -37,6 +40,7 @@ def signup(request):
     form=RegisterForm()
     context={'form':form}
     return render(request,'userAccount/signup.html',context)
+
 
 def updateUser(request,pk):
     user=User.objects.get(id=pk)
