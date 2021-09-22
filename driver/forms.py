@@ -1,6 +1,6 @@
 from django.forms import ModelForm,widgets
-from django.forms import fields, models
 from .models import DriverTrip
+from city.models import City
 
 class TripCreationForm(ModelForm):
     class Meta:

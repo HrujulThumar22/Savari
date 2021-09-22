@@ -1,4 +1,7 @@
 {% extends 'base.html' %}
+{% block headScripts %}
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+{% endblock headScripts %}
 {% block body %}
     <h2>Start Journey</h2>
     <form method="post">
@@ -6,4 +9,13 @@
     {{form.as_p}}
     <button type='submit'>Submit</button>
     </form>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#id_Starting_City').select2();
+            $('#id_Destination_City').select2();
+        });
+
+    </script>
 {% endblock body %}
