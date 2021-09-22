@@ -20,7 +20,7 @@ def handleLogin(request):
             return redirect('home')
         else:
             messages.error(request,'invalid credentials')
-            return redirect('home')
+            return redirect('user_login')
     
     return render(request,'userAccount/login.html')
 
