@@ -19,6 +19,7 @@
                         <th scope="col">Ending Time</th>
                         <th scope="col">Stops</th>
                         <th scope="col">Vacant Seats</th>
+                        <th scope="col">Ride Started</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -31,6 +32,7 @@
                         <td>{{trip.Trip_Ending_Date}}-{{trip.Trip_Ending_Time}}</td>
                         <td>{{trip.Stops}}</td>
                         <td>{{trip.Vacancy}}</td>
+                        <td>{{trip.isTripStarted}}</td>
                         </tr>
                     {% endfor %}
                 </tbody>
