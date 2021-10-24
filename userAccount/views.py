@@ -1,4 +1,4 @@
-from decorators.decorators import unauthenticated_user
+from decorators.decorators import unauthenticated_user,allowed_users
 from django.shortcuts import render,HttpResponse,redirect
 from userAccount.forms import RegisterForm,UpdateForm
 from django.contrib import messages
@@ -18,7 +18,7 @@ UserModel = get_user_model()
 # Create your views here.
 @login_required
 def home(request):
-    return HttpResponse("Home Page")
+    return render(request,'userAccount/home.html')
 
 @unauthenticated_user
 def handleLogin(request):
