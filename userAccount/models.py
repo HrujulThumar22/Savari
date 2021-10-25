@@ -67,3 +67,13 @@ class User(AbstractBaseUser,PermissionsMixin):
     
     def has_module_perms(self,app_label):
         return True
+
+class UserTrip(models.Model):
+    passenger=models.ForeignKey('userAccount.User',on_delete=models.CASCADE)
+    trip=models.ForeignKey('driver.driverTrip',on_delete=models.CASCADE)
+    noOfSeatsBooked=models.IntegerField()
+    isTripComfirmed=models.BooleanField(default=False)
+    tripBookedOn=models.DateTimeField(auto_now=True)
+
+    def __str__(self) -> str:
+        return self.passenger.username+': '+self.trip.id
