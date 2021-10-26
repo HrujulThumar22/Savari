@@ -10,11 +10,11 @@ from passengerTrip.forms import BookRideForm
 UserModel = get_user_model()
 # Create your views here.
 @login_required
-@allowed_users(allowed_role=['passenger'])
+@allowed_users(allowed_role=['Passenger'])
 def home(request):
     return render(request,'userTrip/home.html')
 @login_required
-@allowed_users(allowed_role=['passenger'])
+@allowed_users(allowed_role=['Passenger'])
 def bookRide(request):
     if request.method=="POST":
         form=BookRideForm(request.POST)
@@ -31,6 +31,6 @@ def bookRide(request):
     context={'form':form}
     return render(request,'userTrip/bookRide.html',context)
 @login_required
-@allowed_users(allowed_role=['passenger'])
+@allowed_users(allowed_role=['Passenger'])
 def confirmRide(request,pk):
     return HttpResponse(pk)

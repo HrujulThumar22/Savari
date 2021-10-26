@@ -6,7 +6,7 @@ from userAccount.models import User
 from .models import DriverTrip
 # Create your views here.
 @login_required
-@allowed_users(allowed_role=['driver'])
+@allowed_users(allowed_role=['Driver'])
 def StartJourney(request):
     if request.method=="POST":
         form=TripCreationForm(request.POST)
@@ -22,7 +22,7 @@ def StartJourney(request):
     context={'form':form}
     return render(request,'driver/startJourney.html',context)
 @login_required
-@allowed_users(allowed_role=['driver'])
+@allowed_users(allowed_role=['Driver'])
 def Home(request):
     trips=DriverTrip.objects.filter(Driver_id=request.user.id)
     if trips.exists():
