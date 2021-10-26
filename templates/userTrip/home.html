@@ -5,7 +5,7 @@
         <a href="{% url 'book_ride' %}">
             <button class="btn btn-primary">Book a Ride</button>
         </a>
-        {% if not trips %}
+        {% if not myTrips %}
             <h5>You have no trips</h5>
         {% else %}
             <h5>Your Trips</h5>
@@ -23,16 +23,16 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for trip in trips %}
+                    {% for trip in myTrips %}
                         <tr>
                         <th scope="row">{{forloop.counter}}</th>
-                        <td>{{trip.Starting_City}}</td>
-                        <td>{{trip.Destination_City}}</td>
-                        <td>{{trip.Trip_Starting_Date}}-{{trip.Trip_Starting_Time}}</td>
-                        <td>{{trip.Trip_Ending_Date}}-{{trip.Trip_Ending_Time}}</td>
-                        <td>{{trip.Stops}}</td>
-                        <td>{{trip.Vacancy}}</td>
-                        <td>{{trip.isTripStarted}}</td>
+                        <td>{{trip.trip.Starting_City}}</td>
+                        <td>{{trip.trip.Destination_City}}</td>
+                        <td>{{trip.trip.Trip_Starting_Date}}-{{trip.trip.Trip_Starting_Time}}</td>
+                        <td>{{trip.trip.Trip_Ending_Date}}-{{trip.trip.Trip_Ending_Time}}</td>
+                        <td>{{trip.trip.Stops}}</td>
+                        <td>{{trip.trip.Vacancy}}</td>
+                        <td>{{trip.trip.isTripStarted}}</td>
                         </tr>
                     {% endfor %}
                 </tbody>
