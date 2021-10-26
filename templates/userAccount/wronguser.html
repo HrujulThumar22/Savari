@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block headScripts %}
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+{% endblock headScripts %}
+{% block body %}
+    <div class="container text-center">
+        <h1>You have no permission to view this page.{{ res.res }}</h1>
+    </div>
+{% endblock body %}
