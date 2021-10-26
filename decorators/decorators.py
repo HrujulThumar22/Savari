@@ -20,7 +20,9 @@ def allowed_users(allowed_role=[]):
             if group in allowed_role:
                 return view_func(request,*args,**kwargs)
             res=allowed_role[0]
+            #print(res)
             context={'res':res}
+            #print(context)
             return render(request,'userAccount/wronguser.html',context)
             #return HttpResponse('Not Allowed Please Login as valid User '+ allowed_role[0])
         return wrapper_func

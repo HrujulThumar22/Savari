@@ -23,6 +23,7 @@ def bookRide(request):
             D_city=form.cleaned_data.get('Destination_City')
             result=DriverTrip.objects.filter(Starting_City__name=S_City,Destination_City__name=D_city)
             context={'result':result,'form':form}
+            #print(context)
             return render(request,'userTrip/bookRide.html',context)
         else:
             return redirect('driver_start')
