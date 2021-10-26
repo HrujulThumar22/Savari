@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% block body %}
+    <div class="container my-3 px-5">
+        <div class="row">
+            <div class="col-md-4">
+                <h2>Ride Details</h2>
+                <b>Starting City :</b> {{trip.Starting_City}}<br>
+                <b>Destination City :</b> {{trip.Destination_City}}<br>
+                <b>Stops :</b> {{trip.Stops}}<br>
+            </div>
+            <div class="col-md-4">
+                <h2>Vehical Details</h2>
+                <b>Vehicle Name :</b> {{trip.Vehicle_Name}}<br>
+                <b>Vehicle Number :</b> {{trip.Vehicle_Number}}<br>
+                <b>Seats Available :</b> {{trip.Vacancy}}<br>
+            </div>
+            <div class="col-md-4">
+                <h2>Driver Details</h2>
+                <b>User Name :</b> {{trip.Driver.username}}<br>
+                <b>Name :</b> {{trip.Driver.first_name}} {{trip.Driver.last_name}}<br>
+                <b>Mobile Number :</b> {{trip.Driver.mobile}}<br>
+            </div>
+        </div>
+        <h2>Seat Selection</h2>
+        <form method="POST" action="{% url 'confirm_ride' trip.id %}">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">{{form.noOfSeatsBooked.label}}</label>
+                        {{form.noOfSeatsBooked}}
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        {% if result is not None %}
+            {% if  result|length < 1 %}
+                <h5>No trips available</h5>
+            {% else %}
+                <h3>Choose your Ride </h3>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Sr. No.</th>
+                            <th scope="col">Starting Location</th>
+                            <th scope="col">Destiation</th>
+                            <th scope="col">Starting Time</th>
+                            <th scope="col">Ending Time</th>
+                            <th scope="col">Stops</th>
+                            <th scope="col">Vacant Seats</th>
+                            <th scope="col">Ride Started</th>
+                            <th scope="col">Book Ride</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for trip in result %}
+                            <tr>
+                            <th scope="row">{{forloop.counter}}</th>
+                            <td>{{trip.Starting_City}}</td>
+                            <td>{{trip.Destination_City}}</td>
+                            <td>{{trip.Trip_Starting_Date}}-{{trip.Trip_Starting_Time}}</td>
+                            <td>{{trip.Trip_Ending_Date}}-{{trip.Trip_Ending_Time}}</td>
+                            <td>{{trip.Stops}}</td>
+                            <td>{{trip.Vacancy}}</td>
+                            <td>{{trip.isTripStarted}}</td>
+                            <td> <a href="{% url 'confirm_ride' trip.id %}"><button class="btn btn-primary">Book This</button></a></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
+        {% endif %}
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#id_Starting_City').select2();
+            $('#id_Destination_City').select2();
+        });
+
+    </script>
+{% endblock body %}

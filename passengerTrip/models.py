@@ -10,7 +10,7 @@ class UserTrip(models.Model):
     tripBookedOn=models.DateTimeField(auto_now=True)
 
     def __str__(self) -> str:
-        return self.passenger.username+': '+self.trip.id
+        return self.passenger.username+': '+str(self.trip.id)
 
 class BookRide(models.Model):
     Starting_City=models.ForeignKey("city.City",on_delete=models.CASCADE,related_name='starting_city')
