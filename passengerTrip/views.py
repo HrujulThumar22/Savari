@@ -1,15 +1,20 @@
 from django.http.response import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.shortcuts import render
+from decorators.decorators import allowed_users
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
 from driver.models import DriverTrip 
 
 from passengerTrip.forms import BookRideForm
 UserModel = get_user_model()
 # Create your views here.
+@login_required
+@allowed_users(allowed_role=['passenger'])
 def home(request):
     return render(request,'userTrip/home.html')
-
+@login_required
+@allowed_users(allowed_role=['passenger'])
 def bookRide(request):
     if request.method=="POST":
         form=BookRideForm(request.POST)
@@ -24,6 +29,7 @@ def bookRide(request):
     form=BookRideForm()
     context={'form':form}
     return render(request,'userTrip/bookRide.html',context)
-
+@login_required
+@allowed_users(allowed_role=['passenger'])
 def confirmRide(request,pk):
     return HttpResponse(pk)

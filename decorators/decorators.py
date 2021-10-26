@@ -20,6 +20,6 @@ def allowed_users(allowed_role=[]):
             if group in allowed_role:
                 return view_func(request,*args,**kwargs)
             
-            return HttpResponse('Not Allowed')
+            return HttpResponse('Not Allowed Please Login as valid User '+ allowed_role[0])
         return wrapper_func
     return decorator

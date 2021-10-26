@@ -21,7 +21,8 @@ def StartJourney(request):
     form=TripCreationForm()
     context={'form':form}
     return render(request,'driver/startJourney.html',context)
-
+@login_required
+@allowed_users(allowed_role=['driver'])
 def Home(request):
     trips=DriverTrip.objects.filter(Driver_id=request.user.id)
     if trips.exists():
