@@ -8,6 +8,8 @@ from django.contrib.auth import get_user_model
 from driver.models import DriverTrip 
 from .models import UserTrip
 from passengerTrip.forms import BookRideForm, ConfirmRideForm
+
+from notifications.signals import notify
 UserModel = get_user_model()
 # Create your views here.
 @login_required
@@ -43,12 +45,15 @@ def confirmRide(request,pk):
         if form.is_valid():
             userTrip = form.save(commit=False)
             if(tripDetails.Vacancy>=userTrip.noOfSeatsBooked):
-                tripDetails.Vacancy=tripDetails.Vacancy-userTrip.noOfSeatsBooked
                 userTrip.trip=tripDetails
                 user=get_object_or_404(UserModel,pk=request.user.id)
                 userTrip.passenger=user
                 tripDetails.save()
                 userTrip.save()
+                sender = UserModel.objects.get(username=request.user)
+                recipient = UserModel.objects.get(pk=tripDetails.Driver.id)
+                message = "You Got request for your ride."
+                notify.send(sender, recipient=recipient, verb='Message',description=message)
                 return redirect('passenger_home')
             else :
                 messages.error(request, str(userTrip.noOfSeatsBooked) + ' Seats not Available. Seats must not be greater the available seats')
