@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'driver.apps.DriverConfig',
     'city.apps.CityConfig',
     'passengerTrip.apps.PassengertripConfig',
+    'notifications',
     #Default Imports
     'django.contrib.admin',
     'django.contrib.auth',
