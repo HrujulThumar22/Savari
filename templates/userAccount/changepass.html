@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %}Signup{% endblock title %}
+{% block body %}
+    <div class="container my-3 px-md-6">
+        <h2>Change Password</h2>
+        
+        <form method="POST" action="{% url 'change_pass' user.id %}">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="password" class="form-label">New Password</label>
+                        <input type="password" class="form-control" name='pass1' id="pass1">  
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Renter New Password</label>
+                        <input type="password" class="form-control" name="pass2" id="pass2"> 
+                    </div>
+                </div>
+            </div>
+        <div class="row">
+            <div class="col-md-3">
+            <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+        </form>
+    </div>
+{% endblock body %}

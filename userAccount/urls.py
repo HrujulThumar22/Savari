@@ -1,3 +1,4 @@
+from typing import ChainMap
 from django.contrib import admin
 from django.urls import path
 from . import views
@@ -12,6 +13,7 @@ urlpatterns = [
     path('logout',views.handleLogout,name="user_logout"),
     path('activate/<uidb64>/<token>/',views.activate, name='activate'),
     path('detail/<str:pk>/',views.UserDetail.as_view(), name='user_detail'),
+    path('changepass/<str:pk>/',views.changepass, name='change_pass'),
 ]
 if settings.DEBUG: # new
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

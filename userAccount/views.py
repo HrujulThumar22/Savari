@@ -114,3 +114,22 @@ def activate(request, uidb64, token):
         res="Activation link is invalid!"
     context={'res':res}
     return render(request,'userAccount/auth.html',context)
+@login_required
+def changepass(request,pk):
+    if request.method=="POST":
+        pass1=request.POST['pass1']
+        pass2=request.POST['pass2']
+        if pass1!=pass2:
+            messages.error(request,'password should match')
+            return redirect('change_pass')
+        user=User.objects.get(id=pk)
+        if user is not None:
+            user.set_password(pass1)
+            user.save()
+            messages.success(request,"Successfully Changed password")
+            return redirect('user_home')
+        else:
+            messages.error(request,'invalid credentials')
+            return redirect('change_pass')
+    
+    return render(request,'userAccount/changepass.html')
