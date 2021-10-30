@@ -10,7 +10,7 @@ from .models import DriverTrip
 @allowed_users(allowed_role=['Driver'])
 def StartJourney(request):
     if request.method=="POST":
-        form=TripCreationForm(request.POST)
+        form=TripCreationForm(request.POST,request.FILES)
         user=get_object_or_404(User,pk=request.user.id)
         if form.is_valid():
             trip = form.save(commit=False)

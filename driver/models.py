@@ -15,6 +15,7 @@ class DriverTrip(models.Model):
     Vehicle_Name=models.CharField(max_length=50)
     number_regex=RegexValidator(regex=r'^[A-Z]{2}[-][0-9]{1,2}[-][A-Z]{1,2}[-][0-9]{3,4}$', message="Vehicle number must be entered in the format: MH-03-C-3843")
     Vehicle_Number=models.CharField(validators=[number_regex], max_length=17, blank=True)
+    vehicleimg=models.ImageField(upload_to='vimages/',default='image.jpg')
     Vacancy=models.IntegerField()
     Driver=models.ForeignKey("userAccount.User", on_delete=models.CASCADE)
     TripStatus=models.CharField(max_length=1,choices=STATUS_CHOICES,default=0,)

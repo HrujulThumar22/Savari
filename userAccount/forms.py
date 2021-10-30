@@ -11,7 +11,7 @@ class RegisterForm(UserCreationForm):
     class Meta:
         model = User
         labels={'dob':('D.O.B')}
-        fields = ["username", "password1", "password2", "dob", "email", "first_name", "last_name","mobile"]
+        fields = ["username", "password1", "password2", "dob", "email", "first_name", "last_name","mobile","profilepic"]
         widgets={'dob':widgets.DateInput(attrs={'type':'date'})}
 
 class UpdateForm(ModelForm):
@@ -22,5 +22,5 @@ class UpdateForm(ModelForm):
     class Meta:
         model=User
         labels={'dob':('D.O.B')}
-        fields = ["username", "dob", "email", "first_name", "last_name","mobile"]
+        fields = ["username", "dob", "email", "first_name", "last_name","mobile","profilepic"]
         widgets={'dob':widgets.DateInput(attrs={'type':'date'})}

@@ -9,4 +9,4 @@ class TripCreationForm(ModelForm):
             visible.field.widget.attrs['class'] = 'form-control'
     class Meta:
         model=DriverTrip
-        fields=['Starting_City','Destination_City','Vehicle_Name','Vehicle_Number','Vacancy','Stops']
+        fields=['Starting_City','Destination_City','Vehicle_Name','Vehicle_Number','Vacancy','Stops','vehicleimg']

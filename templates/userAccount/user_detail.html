@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}User Detail{% endblock title %}
+{% block body %}
+<div class="container py-3">
+<table class="table table-striped text-center" align="center">
+<tr><th colspan=2 >User Details</th></tr>
+<tr><td>UserName:</td> <td>{{object.username}}</td></tr>
+<tr><td>Email:</td> <td>{{object.email}}</td></tr>
+<tr><td>Phone</td> <td>{{object.mobile}}</td></tr>
+<tr><td>Profile Pic:</td> <td><img src="{{ object.profilepic.url }}" width=200></td></tr>
+</table>
+</div>
+{% endblock body %}

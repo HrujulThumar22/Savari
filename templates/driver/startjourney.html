@@ -5,7 +5,7 @@
 {% block body %}
     <div class="container my-3 px-5">
         <h2>Start Journey</h2>
-        <form method="POST" action="{% url 'driver_start' %}">
+        <form method="POST" enctype="multipart/form-data" action="{% url 'driver_start' %}">
             {% csrf_token %}
             <div class="row">
                 <div class="col-md-6">
@@ -60,6 +60,12 @@
                     <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label">{{form.Vehicle_Number.label}}</label>
                         {{form.Vehicle_Number}}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">{{form.vehicleimg.label}}</label>
+                        {{form.vehicleimg}}
                     </div>
                 </div>
                 <div class="col-md-6">

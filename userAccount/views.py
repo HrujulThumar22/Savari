@@ -14,11 +14,18 @@ from django.contrib.auth.tokens import default_token_generator
 from django.contrib.auth.models import User  
 from django.core.mail import EmailMessage  
 from .models import User
+from django.views.generic import ListView, CreateView, UpdateView, DetailView, DeleteView 
+
 UserModel = get_user_model()
 # Create your views here.
 @login_required
 def home(request):
     return render(request,'userAccount/home.html')
+
+class UserDetail(DetailView): 
+    model = User
+    template_name="userAccount/user_detail.html"
+    context_object_name ="user"
 
 @unauthenticated_user
 def handleLogin(request):
@@ -40,7 +47,8 @@ def handleLogin(request):
 @unauthenticated_user
 def signup(request):
     if request.method=="POST":
-        form=RegisterForm(request.POST)
+        form=RegisterForm(request.POST,request.FILES)
+        #print(request.FILES['profilepic'])
         if form.is_valid():
             user = form.save(commit=False)
             user.is_active = False
@@ -76,11 +84,13 @@ def updateUser(request,pk):
         form=UpdateForm(request.POST,instance=user)
         if form.is_valid():
             form.save()
-            return HttpResponse("hi")
+            messages.success(request,"Details are updated")
+            return HttpResponse('De')
         else:
             context={'form':form}
+            print(form)
             messages.error(request,'There is Error in your information...kindly refill the form')
-            render(request,'userAccount/update.html',context)
+            return render(request,'userAccount/update.html',context)
     context={'form':form}
     return render(request,'userAccount/update.html',context)
 
@@ -99,6 +109,8 @@ def activate(request, uidb64, token):
     if user is not None and default_token_generator.check_token(user, token):
         user.is_active = True
         user.save()
-        return HttpResponse('Thank you for your email confirmation. Now you can login your account.')
+        res="Thank you for your email confirmation. Now you can login your account."
     else:
-        return HttpResponse('Activation link is invalid!')
+        res="Activation link is invalid!"
+    context={'res':res}
+    return render(request,'userAccount/auth.html',context)
