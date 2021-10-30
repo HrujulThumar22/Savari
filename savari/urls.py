@@ -23,6 +23,10 @@ from django.conf import settings
 from django.urls import include
 from django.conf.urls.static import static
 
+admin.site.site_header  =  "Savari System admin"  
+admin.site.site_title  =  "Savari System site"
+admin.site.index_title  =  "Savari System Admin"
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('user/',include('userAccount.urls')),
