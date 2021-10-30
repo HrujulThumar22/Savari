@@ -6,7 +6,10 @@ from passengerTrip.models import UserTrip
 from userAccount.models import User
 from .models import DriverTrip
 from django.views.generic import ListView, CreateView, UpdateView, DetailView, DeleteView 
+from django.contrib.auth import get_user_model
+from notifications.signals import notify
 
+UserModel = get_user_model()
 # Create your views here.
 @login_required
 @allowed_users(allowed_role=['Driver'])
@@ -39,6 +42,24 @@ def RideRequest(request):
     myRideRequest=UserTrip.objects.filter(trip__Driver=request.user)
     context={'rideRequest':myRideRequest}
     return render(request,'driver/rideRequest.html',context)
+
+def acceptRequest(request,pk):
+    rideRequest=UserTrip.objects.filter(pk=pk)
+    rideRequest.requestStatus=1
+    sender = UserModel.objects.get(username=request.user)
+    recipient = UserModel.objects.get(pk=rideRequest.passenger.id)
+    message = "Your request for the ride is Accepted."
+    notify.send(sender, recipient=recipient, verb='Message',description=message)
+    return redirect('driver_request')
+
+def rejectRequest(request,pk):
+    rideRequest=UserTrip.objects.filter(pk=pk)
+    rideRequest.requestStatus=2
+    sender = UserModel.objects.get(username=request.user)
+    recipient = UserModel.objects.get(pk=rideRequest.passenger.id)
+    message = "Your request for the ride is Rejected."
+    notify.send(sender, recipient=recipient, verb='Message',description=message)
+    return redirect('driver_request')
 
 class RideDetail(DetailView): 
     model = DriverTrip

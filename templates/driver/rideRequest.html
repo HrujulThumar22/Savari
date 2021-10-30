@@ -27,7 +27,12 @@
                         <td>{{req.passenger.username}}</td>
                         <td>
                         {% if req.requestStatus == "0" %}
-                         Accept reject option
+                            <a class="btn btn-primary mx-2" href="{% url 'request_accept' req.id %}">
+                                Accept
+                            </a>
+                            <a class="btn btn-primary mx-2" href="{% url 'request_accept' req.id %}">
+                                Reject
+                            </a>
                         {% elif req.requestStatus == "1" %}
                             Accepted
                         {% else %}

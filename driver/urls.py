@@ -9,6 +9,8 @@ urlpatterns = [
     path('start/',views.StartJourney,name="driver_start"),
     path('request/',views.RideRequest,name="driver_request"),
     path('ridedetail/<str:pk>/',views.RideDetail.as_view(),name="driver_ride"),
+    path('request/accept/<str:pk>',views.acceptRequest,name="request_accept"),
+    path('request/reject/<str:pk>',views.rejectRequest,name="request_reject"),
 ]
 if settings.DEBUG: # new
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
