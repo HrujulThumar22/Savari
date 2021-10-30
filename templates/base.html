@@ -56,7 +56,7 @@
                 Welcome {{ request.user }}
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="{% url 'update_user' user.id %}">Edit Profile</a></li>
+                <li><a class="dropdown-item" href="{% url 'user_detail' user.id %}">View Profile</a></li>
                 <li><a class="dropdown-item" href="{% url 'user_logout' %}">Logout</a></li>
               </ul>
             </li>
