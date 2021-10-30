@@ -5,6 +5,8 @@ from django.shortcuts import get_object_or_404, redirect, render
 from passengerTrip.models import UserTrip
 from userAccount.models import User
 from .models import DriverTrip
+from django.views.generic import ListView, CreateView, UpdateView, DetailView, DeleteView 
+
 # Create your views here.
 @login_required
 @allowed_users(allowed_role=['Driver'])
@@ -22,6 +24,7 @@ def StartJourney(request):
     form=TripCreationForm()
     context={'form':form}
     return render(request,'driver/startJourney.html',context)
+
 @login_required
 @allowed_users(allowed_role=['Driver'])
 def Home(request):
@@ -36,3 +39,8 @@ def RideRequest(request):
     myRideRequest=UserTrip.objects.filter(trip__Driver=request.user)
     context={'rideRequest':myRideRequest}
     return render(request,'driver/rideRequest.html',context)
+
+class RideDetail(DetailView): 
+    model = DriverTrip
+    template_name="driver/ride_detail.html"
+    context_object_name ="ride"

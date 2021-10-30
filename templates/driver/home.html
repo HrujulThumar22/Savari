@@ -18,6 +18,7 @@
                         <th scope="col">Stops</th>
                         <th scope="col">Vacant Seats</th>
                         <th scope="col">Ride Started</th>
+                        <th scope="col">actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -29,6 +30,7 @@
                         <td>{{trip.Stops}}</td>
                         <td>{{trip.Vacancy}}</td>
                         <td>{{trip.TripStatus}}</td>
+                        <td><a class="btn btn-primary" href="{% url 'driver_ride' trip.id %}">detail</a></td>
                         </tr>
                     {% endfor %}
                 </tbody>
