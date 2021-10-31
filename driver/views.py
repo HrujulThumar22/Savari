@@ -1,3 +1,4 @@
+from django.contrib import messages
 from decorators.decorators import allowed_users
 from django.contrib.auth.decorators import login_required
 from driver.forms import TripCreationForm
@@ -45,20 +46,31 @@ def RideRequest(request):
     return render(request,'driver/rideRequest.html',context)
 
 def acceptRequest(request,pk):
-    rideRequest=UserTrip.objects.filter(pk=pk)
-    rideRequest.requestStatus=1
-    sender = UserModel.objects.get(username=request.user)
-    recipient = UserModel.objects.get(pk=rideRequest.passenger.id)
-    message = "Your request for the ride is Accepted."
-    notify.send(sender, recipient=recipient, verb='Message',description=message)
-    return redirect('driver_request')
-
+    rideRequest=UserTrip.objects.get(pk=pk)
+    #print(rideRequest)
+    tripD=DriverTrip.objects.get(pk=rideRequest.trip.id)
+    if tripD.Vacancy>=rideRequest.noOfSeatsBooked:
+        tripD.Vacancy=tripD.Vacancy-rideRequest.noOfSeatsBooked
+        tripD.save()
+        rideRequest.requestStatus=1
+        rideRequest.save()
+        sender = UserModel.objects.get(username=request.user)
+        recipient = UserModel.objects.get(username=rideRequest.passenger.username)
+        message = "Your request for the ride is Accepted."
+        notify.send(sender, recipient=recipient, verb='Message',description=message)
+        return redirect('driver_request')
+    else:
+        messages.error(request,'That many seats not avaliable')
+        rideRequest.requestStatus=2
+        rideRequest.save()
+        return redirect('driver_request')
 def rejectRequest(request,pk):
     rideRequest=UserTrip.objects.filter(pk=pk)
     rideRequest.requestStatus=2
     sender = UserModel.objects.get(username=request.user)
     recipient = UserModel.objects.get(pk=rideRequest.passenger.id)
     message = "Your request for the ride is Rejected."
+    rideRequest.save()
     notify.send(sender, recipient=recipient, verb='Message',description=message)
     return redirect('driver_request')
 
