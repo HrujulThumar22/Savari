@@ -14,6 +14,7 @@
                         <th scope="col">Destination</th>
                         <th scope="col">Vacant Seats</th>
                         <th scope="col">User Name</th>
+                        <th scope="col">Requested Seats</th>
                         <th scope="col">Actions</th>
                     </tr>
                 </thead>
@@ -25,6 +26,7 @@
                         <td>{{req.trip.Destination_City}}</td>
                         <td>{{req.trip.Vacancy}}</td>
                         <td>{{req.passenger.username}}</td>
+                        <td>{{req.NoOfSeatsBooked}}</td>
                         <td>
                         {% if req.requestStatus == "0" %}
                             <a class="btn btn-primary mx-2" href="{% url 'request_accept' req.id %}">

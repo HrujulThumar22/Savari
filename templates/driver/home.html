@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block body %}
+
     <div class="container my-3 px-5">
         <h3>Driver Home Page</h3>
         <a href="/driver/start">
@@ -29,8 +30,8 @@
                         <td>{{trip.Destination_City}}</td>
                         <td>{{trip.Stops}}</td>
                         <td>{{trip.Vacancy}}</td>
-                        <td>{{trip.TripStatus}}</td>
-                        <td><a class="btn btn-primary" href="{% url 'driver_ride' trip.id %}">detail</a></td>
+                        <td>{{trip.get_TripStatus_display}}</td>
+                        <td><a class="btn btn-primary" href="{% url 'driver_ride' trip.id %}">View Detail</a></td>
                         </tr>
                     {% endfor %}
                 </tbody>

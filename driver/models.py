@@ -4,9 +4,9 @@ from django.core.validators import RegexValidator
 # Create your models here.
 class DriverTrip(models.Model):
     STATUS_CHOICES =(
-        ("0", "Not Started"),
-        ("1", "Started"),
-        ("2", "Ended"),
+        ('0', 'Not Started'),
+        ('1', 'Started'),
+        ('2', 'Ended'),
     )
     Starting_City=models.ForeignKey("city.City",on_delete=models.CASCADE,related_name='start_city')
     Destination_City=models.ForeignKey("city.City",on_delete=models.CASCADE,related_name='end_city')

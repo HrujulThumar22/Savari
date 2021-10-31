@@ -41,6 +41,7 @@ def Home(request):
 def RideRequest(request):
     myRideRequest=UserTrip.objects.filter(trip__Driver=request.user)
     context={'rideRequest':myRideRequest}
+    print(context)
     return render(request,'driver/rideRequest.html',context)
 
 def acceptRequest(request,pk):

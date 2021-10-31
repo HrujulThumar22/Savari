@@ -2,6 +2,24 @@
 {% block title %}Ride Detail{% endblock title %}
 {% block body %}
 <div class="container py-5 col-md-8">
-    {{ride}}
+    <div class="card mb-3" style="max-width: 1000px;">
+        <div class="row no-gutters">
+          <div class="col-md-4">
+            <img src="{{ ride.vehicleimg.url }}" class="card-img" alt="Vehicle Image">
+            <h6>Name of Vehicle:{{ride.Vehicle_Name}}</h6>
+            <h6>Vehicle Number:{{ride.Vehicle_Number}}</h6>
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title">From:{{ride.Starting_City}}</h5>
+              <h5 class="card-title">To:{{ride.Destination_City}}</h5>
+              <p class="card-text">Driver:{{ride.Driver}}</p>
+              <p class="card-text">Stops in Route:{{ride.Stops}}</p>
+              <p class="card-text">Seats Available:{{ride.Vacancy}}</p>
+              <p class="card-text">TripStatus:{{ride.get_TripStatus_display}}</p>
+            </div>
+          </div>
+        </div>
+    </div>
 </div>
 {% endblock body %}
