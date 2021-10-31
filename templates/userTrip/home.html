@@ -17,6 +17,7 @@
                         <th scope="col">Destiation</th>
                         <th scope="col">Stops</th>
                         <th scope="col">Vacant Seats</th>
+                        <th scope="col">Your Booked Seats</th>
                         <th scope="col">Ride Started</th>
                     </tr>
                 </thead>
@@ -28,7 +29,8 @@
                         <td>{{trip.trip.Destination_City}}</td>
                         <td>{{trip.trip.Stops}}</td>
                         <td>{{trip.trip.Vacancy}}</td>
-                        <td>{{trip.trip.isTripStarted}}</td>
+                        <td>{{trip.noOfSeatsBooked}}</td>
+                        <td>{{trip.trip.get_TripStatus_display}}</td>
                         </tr>
                     {% endfor %}
                 </tbody>
