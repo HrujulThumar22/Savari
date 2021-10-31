@@ -4,7 +4,8 @@ from userAccount.forms import RegisterForm,UpdateForm
 from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import login, authenticate   
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.models import Group   
 from django.contrib.sites.shortcuts import get_current_site  
 from django.utils.encoding import force_bytes, force_text  
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode  
@@ -47,11 +48,15 @@ def handleLogin(request):
 @unauthenticated_user
 def signup(request):
     if request.method=="POST":
+        role=request.POST['role']
         form=RegisterForm(request.POST,request.FILES)
         #print(request.FILES['profilepic'])
         if form.is_valid():
             user = form.save(commit=False)
             user.is_active = False
+            user.save()
+            grp=Group.objects.get(name=role)
+            user.groups.add(grp)
             user.save()
             current_site = get_current_site(request)
             mail_subject = 'Activate your account.'
