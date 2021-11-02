@@ -38,7 +38,10 @@ def handleLogin(request):
         if user is not None:
             login(request,user)
             messages.success(request,"Successfully logged in")
-            return redirect('home')
+            if user.groups.filter(name="Driver").exists():
+                return redirect('driver_home')
+            else:
+                return redirect('passenger_home')
         else:
             messages.error(request,'invalid credentials')
             return redirect('user_login')

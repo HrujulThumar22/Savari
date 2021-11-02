@@ -24,7 +24,13 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
-                <a class="nav-link {% block activeHome %}{% endblock activeHome %}" href="/">Home</a>
+                {% if request.user.groups.all.0.name == "Driver" %}
+                <a class="nav-link {% block driverHome %}{% endblock driverHome %}" href="{% url 'driver_home' %}">Home</a>
+                {% elif request.user.groups.all.0.name == "Passenger" %}
+                <a class="nav-link {% block passengerHome %}{% endblock passengerHome %}" href="{% url 'passenger_home' %}">Home</a>
+                {% else %}
+                <a class="nav-link {% block activeHome %}{% endblock activeHome %}" href="{% url 'home' %}">Home</a>
+                {% endif %}
               </li>
               <li class="nav-item">
                 <a class="nav-link {% block activeAbout %}{% endblock activeAbout %}" href="/about">About</a>

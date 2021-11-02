@@ -26,7 +26,7 @@ def bookRide(request):
         if form.is_valid():
             S_City=form.cleaned_data.get('Starting_City')
             D_city=form.cleaned_data.get('Destination_City')
-            result=DriverTrip.objects.filter(Starting_City__name=S_City,Destination_City__name=D_city)
+            result=DriverTrip.objects.filter(Starting_City__name=S_City,Destination_City__name=D_city,TripStatus=0)
             context={'result':result,'form':form}
             return render(request,'userTrip/bookRide.html',context)
         else:
