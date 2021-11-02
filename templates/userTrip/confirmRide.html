@@ -49,51 +49,5 @@
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
         </div>
-        {% if result is not None %}
-            {% if  result|length < 1 %}
-                <h5>No trips available</h5>
-            {% else %}
-                <h3>Choose your Ride </h3>
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th scope="col">Sr. No.</th>
-                            <th scope="col">Starting Location</th>
-                            <th scope="col">Destiation</th>
-                            <th scope="col">Starting Time</th>
-                            <th scope="col">Ending Time</th>
-                            <th scope="col">Stops</th>
-                            <th scope="col">Vacant Seats</th>
-                            <th scope="col">Ride Started</th>
-                            <th scope="col">Book Ride</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for trip in result %}
-                            <tr>
-                            <th scope="row">{{forloop.counter}}</th>
-                            <td>{{trip.Starting_City}}</td>
-                            <td>{{trip.Destination_City}}</td>
-                            <td>{{trip.Trip_Starting_Date}}-{{trip.Trip_Starting_Time}}</td>
-                            <td>{{trip.Trip_Ending_Date}}-{{trip.Trip_Ending_Time}}</td>
-                            <td>{{trip.Stops}}</td>
-                            <td>{{trip.Vacancy}}</td>
-                            <td>{{trip.isTripStarted}}</td>
-                            <td> <a href="{% url 'confirm_ride' trip.id %}"><button class="btn btn-primary">Book This</button></a></td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            {% endif %}
-        {% endif %}
-    </div>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('#id_Starting_City').select2();
-            $('#id_Destination_City').select2();
-        });
-
-    </script>
+        
 {% endblock body %}

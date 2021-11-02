@@ -73,7 +73,30 @@ def rejectRequest(request,pk):
     rideRequest.save()
     notify.send(sender, recipient=recipient, verb='Message',description=message)
     return redirect('driver_request')
+def startride(request,pk):
+    ride=DriverTrip.objects.get(pk=pk)
+    ride.TripStatus=1
+    ride.save()
+    return redirect('driver_home')
 
+def completeride(request,pk):
+    ride=DriverTrip.objects.get(pk=pk)
+    ride.TripStatus=2
+    ride.save()
+    return redirect('driver_home')
+def deleteride(request,pk):
+    dride=DriverTrip.objects.get(pk=pk)
+    riderequests=UserTrip.objects.filter(trip=dride,requestStatus=1)
+    print(riderequests)
+    for ride in riderequests:
+        ride.requestStatus=2
+        sender = UserModel.objects.get(username=request.user)
+        recipient = UserModel.objects.get(pk=ride.passenger.id)
+        message = "Ride is Cancelled."
+        ride.save()
+        notify.send(sender, recipient=recipient, verb='Message',description=message)
+    dride.delete()
+    return redirect('driver_home')
 class RideDetail(DetailView): 
     model = DriverTrip
     template_name="driver/ride_detail.html"

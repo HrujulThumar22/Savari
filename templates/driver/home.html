@@ -32,7 +32,14 @@
                         <td>{{trip.Stops}}</td>
                         <td>{{trip.Vacancy}}</td>
                         <td>{{trip.get_TripStatus_display}}</td>
-                        <td><a class="btn btn-primary" href="{% url 'driver_ride' trip.id %}">View Detail</a></td>
+                        <td><a class="btn btn-primary" href="{% url 'driver_ride' trip.id %}">View Detail</a><br>
+                        {% if trip.TripStatus == "0" %}
+                        <a class="btn btn-primary my-2" href="{% url 'start_ride' trip.id %}">Start Ride</a>
+                        <a class="btn btn-primary my-2" href="{% url 'delete_ride' trip.id %}">Cancel Ride</a>
+                        {% elif trip.TripStatus == "1" %}
+                        <a class="btn btn-primary my-2" href="{% url 'complete_ride' trip.id %}">End the Ride</a>
+                        {% endif %}
+                        </td>
                         </tr>
                     {% endfor %}
                 </tbody>
