@@ -1,26 +1,40 @@
 {% extends 'base.html' %}
 {% block body %}
-    <div class="container my-3 px-5">
-        <div class="row">
-            <div class="col-md-4">
-                <h2>Ride Details</h2>
-                <b>Starting City :</b> {{trip.Starting_City}}<br>
-                <b>Destination City :</b> {{trip.Destination_City}}<br>
-                <b>Stops :</b> {{trip.Stops}}<br>
+        <div class="container py-5 col-md-9">
+            <div class="card mb-3 shadow" style="max-width: 1000px;">
+                <div class="row no-gutters">
+                  <div class="col-md-4">
+                    <img src="{{ trip.vehicleimg.url }}" class="card-img" alt="Vehicle Image">
+                  </div>
+                  <div class="col-md-8">
+                    <div class="card-body">
+                    <p class="card-title">
+                        <b>From: </b>{{trip.Starting_City}} ---> <b>To:</b> {{trip.Destination_City}}<br>
+                        <b>Stops in Route:</b> {{trip.Stops}}<br>
+                        <b>Name of Vehicle:</b> {{trip.Vehicle_Name}}<br>
+                        <b>Vehicle Number:</b> {{trip.Vehicle_Number}}<br>
+                        <b>Seats Available:</b> {{trip.Vacancy}}<br>
+                        <b>TripStatus:</b> {{trip.get_TripStatus_display}}<br>
+                    </p>
+                    </div>
+                  </div>
+                </div>
             </div>
-            <div class="col-md-4">
-                <h2>Vehical Details</h2>
-                <b>Vehicle Name :</b> {{trip.Vehicle_Name}}<br>
-                <b>Vehicle Number :</b> {{trip.Vehicle_Number}}<br>
-                <b>Seats Available :</b> {{trip.Vacancy}}<br>
+            <div class="card mb-3 shadow" style="max-width: 1000px;">
+                <div class="row no-gutters">
+                  <div class="col-md-4">
+                    <img src="{{ trip.Driver.profilepic.url }}" class="card-img" height=250 alt="Vehicle Image">
+                  </div>
+                  <div class="col-md-8">
+                    <div class="card-body">
+                      <p class="card-title"><b>User Name :</b> {{trip.Driver.username}}<br>
+                        <b>Name :</b> {{trip.Driver.first_name}} {{trip.Driver.last_name}}<br>
+                        <b>Mobile Number :</b> {{trip.Driver.mobile}}</p>
+                    </div>
+                  </div>
+                </div>
             </div>
-            <div class="col-md-4">
-                <h2>Driver Details</h2>
-                <b>User Name :</b> {{trip.Driver.username}}<br>
-                <b>Name :</b> {{trip.Driver.first_name}} {{trip.Driver.last_name}}<br>
-                <b>Mobile Number :</b> {{trip.Driver.mobile}}<br>
-            </div>
-        </div>
+
         <h2>Seat Selection</h2>
         <form method="POST" action="{% url 'confirm_ride' trip.id %}">
             {% csrf_token %}
@@ -34,6 +48,7 @@
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
+        </div>
         {% if result is not None %}
             {% if  result|length < 1 %}
                 <h5>No trips available</h5>
