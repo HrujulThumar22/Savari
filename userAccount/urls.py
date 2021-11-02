@@ -6,7 +6,6 @@ from django.conf import settings
 from django.urls import include
 from django.conf.urls.static import static
 urlpatterns = [
-    path('',views.home,name="user_home"),
     path('login/',views.handleLogin,name="user_login"),
     path('signup/',views.signup,name="register_user"),
     path('update/<str:pk>/',views.updateUser,name="update_user"),
