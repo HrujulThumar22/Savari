@@ -38,13 +38,15 @@ def Home(request):
     else:
         context={'trips':False}
     return render(request,'driver/home.html',context)
-
+@login_required
+@allowed_users(allowed_role=['Driver'])
 def RideRequest(request):
     myRideRequest=UserTrip.objects.filter(trip__Driver=request.user)
     context={'rideRequest':myRideRequest}
     print(context)
     return render(request,'driver/rideRequest.html',context)
-
+@login_required
+@allowed_users(allowed_role=['Driver'])
 def acceptRequest(request,pk):
     rideRequest=UserTrip.objects.get(pk=pk)
     #print(rideRequest)
@@ -64,6 +66,8 @@ def acceptRequest(request,pk):
         rideRequest.requestStatus=2
         rideRequest.save()
         return redirect('driver_request')
+@login_required
+@allowed_users(allowed_role=['Driver'])
 def rejectRequest(request,pk):
     rideRequest=UserTrip.objects.filter(pk=pk)
     rideRequest.requestStatus=2
@@ -73,17 +77,22 @@ def rejectRequest(request,pk):
     rideRequest.save()
     notify.send(sender, recipient=recipient, verb='Message',description=message)
     return redirect('driver_request')
+@login_required
+@allowed_users(allowed_role=['Driver'])
 def startride(request,pk):
     ride=DriverTrip.objects.get(pk=pk)
     ride.TripStatus=1
     ride.save()
     return redirect('driver_home')
-
+@login_required
+@allowed_users(allowed_role=['Driver'])
 def completeride(request,pk):
     ride=DriverTrip.objects.get(pk=pk)
     ride.TripStatus=2
     ride.save()
     return redirect('driver_home')
+@login_required
+@allowed_users(allowed_role=['Driver'])
 def deleteride(request,pk):
     dride=DriverTrip.objects.get(pk=pk)
     riderequests=UserTrip.objects.filter(trip=dride,requestStatus=1)
@@ -97,6 +106,7 @@ def deleteride(request,pk):
         notify.send(sender, recipient=recipient, verb='Message',description=message)
     dride.delete()
     return redirect('driver_home')
+
 class RideDetail(DetailView): 
     model = DriverTrip
     template_name="driver/ride_detail.html"
