@@ -34,8 +34,6 @@
                             <th scope="col">Sr. No.</th>
                             <th scope="col">Starting Location</th>
                             <th scope="col">Destiation</th>
-                            <th scope="col">Starting Time</th>
-                            <th scope="col">Ending Time</th>
                             <th scope="col">Stops</th>
                             <th scope="col">Vacant Seats</th>
                             <th scope="col">Ride Started</th>
@@ -48,11 +46,9 @@
                             <th scope="row">{{forloop.counter}}</th>
                             <td>{{trip.Starting_City}}</td>
                             <td>{{trip.Destination_City}}</td>
-                            <td>{{trip.Trip_Starting_Date}}-{{trip.Trip_Starting_Time}}</td>
-                            <td>{{trip.Trip_Ending_Date}}-{{trip.Trip_Ending_Time}}</td>
                             <td>{{trip.Stops}}</td>
                             <td>{{trip.Vacancy}}</td>
-                            <td>{{trip.isTripStarted}}</td>
+                            <td>{{trip.get_TripStatus_display}}</td>
                             <td> <a href="{% url 'confirm_ride' trip.id %}"><button class="btn btn-primary">Book This</button></a></td>
                             </tr>
                         {% endfor %}

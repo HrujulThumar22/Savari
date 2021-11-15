@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 {% block title %}Signup{% endblock title %}
 {% block body %}
-    <div class="container my-3 px-5">
+    <div class="container my-3 px-5 ">
         <h2>Sign Up</h2>
-        <form method="POST" action="{% url 'register_user' %}">
+        <form method="POST" enctype="multipart/form-data" action="{% url 'register_user' %}">
             {% csrf_token %}
             <div class="row">
                 <div class="col-md-6">
@@ -46,6 +46,12 @@
                 </div>
                 <div class="col-md-6">
                     <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">{{form.profilepic.label}}</label>
+                        {{form.profilepic}}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label">{{form.dob.label}}</label>
                         {{form.dob}}
                     </div>
@@ -54,6 +60,15 @@
                     <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label">{{form.mobile.label}}</label>
                         {{form.mobile}}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Select Your Role</label>
+                        <select class="form-select" aria-label="Role" name="role"> 
+                            <option value="Driver">Driver</option>
+                            <option value="Passenger">Passenger</option>
+                          </select>
                     </div>
                 </div>
             </div>

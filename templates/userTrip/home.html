@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% block passengerHome %}active{% endblock passengerHome %}
 {% block body %}
     <div class="container my-3 px-5">
         <h3>Passenger Home Page</h3>
@@ -15,10 +16,10 @@
                         <th scope="col">Sr. No.</th>
                         <th scope="col">Starting Location</th>
                         <th scope="col">Destiation</th>
-                        <th scope="col">Starting Time</th>
-                        <th scope="col">Ending Time</th>
                         <th scope="col">Stops</th>
                         <th scope="col">Vacant Seats</th>
+                        <th scope="col">Your Booked Seats</th>
+                        <th scope="col">Request Status</th>
                         <th scope="col">Ride Started</th>
                     </tr>
                 </thead>
@@ -28,11 +29,11 @@
                         <th scope="row">{{forloop.counter}}</th>
                         <td>{{trip.trip.Starting_City}}</td>
                         <td>{{trip.trip.Destination_City}}</td>
-                        <td>{{trip.trip.Trip_Starting_Date}}-{{trip.trip.Trip_Starting_Time}}</td>
-                        <td>{{trip.trip.Trip_Ending_Date}}-{{trip.trip.Trip_Ending_Time}}</td>
                         <td>{{trip.trip.Stops}}</td>
                         <td>{{trip.trip.Vacancy}}</td>
-                        <td>{{trip.trip.isTripStarted}}</td>
+                        <td>{{trip.noOfSeatsBooked}}</td>
+                        <td>{{trip.get_requestStatus_display}}</td>
+                        <td>{{trip.trip.get_TripStatus_display}}</td>
                         </tr>
                     {% endfor %}
                 </tbody>

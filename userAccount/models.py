@@ -4,7 +4,7 @@ from django.db.models.fields import DateTimeField
 from django.core.validators import RegexValidator
 
 class UserManager(BaseUserManager):
-	def create_user(self,username, email,first_name,last_name,dob,mobile, password=None):
+	def create_user(self,username, email,first_name,last_name,dob,mobile,profilepic, password=None):
 		if not email:
 			raise ValueError('Users must have an email address')
 		if not username:
@@ -17,6 +17,7 @@ class UserManager(BaseUserManager):
             last_name=last_name,
             dob=dob,
             mobile=mobile,
+            profilepic=profilepic,
 		)
 
 		user.set_password(password)
@@ -32,6 +33,7 @@ class UserManager(BaseUserManager):
             dob=dob,
             mobile=mobile,
             password=password,
+            profilepic="image",
 		)
 		user.is_admin = True
 		user.is_staff = True
@@ -44,6 +46,7 @@ class User(AbstractBaseUser,PermissionsMixin):
     username=models.CharField(max_length=50,unique=True)
     first_name=models.CharField(max_length=50)
     last_name=models.CharField(max_length=50)
+    profilepic=models.ImageField(upload_to='images/',default='image.jpg')
     dob=models.DateField()
     phone_regex = RegexValidator(regex=r'^[0-9]{10}$', message="Phone number must be entered in the format: '999999999'. 10 digits allowed.")
     mobile = models.CharField(validators=[phone_regex], max_length=17, blank=True)

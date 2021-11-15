@@ -16,7 +16,17 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.urls.conf import include
+from django.conf.urls import url
 from . import views
+import notifications.urls
+from django.conf import settings 
+from django.urls import include
+from django.conf.urls.static import static
+
+admin.site.site_header  =  "Savari System admin"  
+admin.site.site_title  =  "Savari System site"
+admin.site.index_title  =  "Savari System Admin"
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('user/',include('userAccount.urls')),
@@ -24,5 +34,8 @@ urlpatterns = [
     path('rides/',include('passengerTrip.urls')),
     path('',views.home,name="home"),
     path('about/',views.about,name="about"),
-    path('contact/',views.contact,name="contact"),
+    #path('contact/',views.contact,name="contact"),
+    url('^inbox/notifications/', include(notifications.urls, namespace='notifications')),
 ]
+if settings.DEBUG: # new
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

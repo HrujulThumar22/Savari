@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block body %}
+    <div class="container my-3 px-5">
+        <h3>Ride Request Page</h3>
+        {% if not rideRequest %}
+            <h5>You have no Requests</h5>
+        {% else %}
+            <h5>Your Request</h5>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Sr. No.</th>
+                        <th scope="col">Starting Location</th>
+                        <th scope="col">Destination</th>
+                        <th scope="col">Vacant Seats</th>
+                        <th scope="col">User Name</th>
+                        <th scope="col">Requested Seats</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for req in rideRequest %}
+                        <tr>
+                        <th scope="row">{{forloop.counter}}</th>
+                        <td>{{req.trip.Starting_City}}</td>
+                        <td>{{req.trip.Destination_City}}</td>
+                        <td>{{req.trip.Vacancy}}</td>
+                        <td>{{req.passenger.username}}</td>
+                        <td>{{req.noOfSeatsBooked}}</td>
+                        <td>
+                        {% if req.requestStatus == "0" %}
+                            <a class="btn btn-primary mx-2" href="{% url 'request_accept' req.id %}">
+                                Accept
+                            </a>
+                            <a class="btn btn-primary mx-2" href="{% url 'request_reject' req.id %}">
+                                Reject
+                            </a>
+                        {% elif req.requestStatus == "1" %}
+                            Accepted
+                        {% else %}
+                            rejected
+                        {% endif %}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </div>
+{% endblock body %}

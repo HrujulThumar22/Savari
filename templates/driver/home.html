@@ -1,9 +1,12 @@
 {% extends 'base.html' %}
+{% block driverHome %}active{% endblock driverHome %}
 {% block body %}
+
     <div class="container my-3 px-5">
         <h3>Driver Home Page</h3>
-        <a href="/driver/start">
-            <button class="btn btn-primary">Start a New Trip</button>
+        <a href="/driver/start" class="btn btn-primary">Start a New Trip
+        </a>
+        <a href="/driver/request" class="btn btn-primary mx-3">Passenger Requests
         </a>
         {% if not trips %}
             <h5>You have no trips</h5>
@@ -15,11 +18,10 @@
                         <th scope="col">Sr. No.</th>
                         <th scope="col">Starting Location</th>
                         <th scope="col">Destiation</th>
-                        <th scope="col">Starting Time</th>
-                        <th scope="col">Ending Time</th>
                         <th scope="col">Stops</th>
                         <th scope="col">Vacant Seats</th>
                         <th scope="col">Ride Started</th>
+                        <th scope="col">actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -28,11 +30,17 @@
                         <th scope="row">{{forloop.counter}}</th>
                         <td>{{trip.Starting_City}}</td>
                         <td>{{trip.Destination_City}}</td>
-                        <td>{{trip.Trip_Starting_Date}}-{{trip.Trip_Starting_Time}}</td>
-                        <td>{{trip.Trip_Ending_Date}}-{{trip.Trip_Ending_Time}}</td>
                         <td>{{trip.Stops}}</td>
                         <td>{{trip.Vacancy}}</td>
-                        <td>{{trip.isTripStarted}}</td>
+                        <td>{{trip.get_TripStatus_display}}</td>
+                        <td><a class="btn btn-primary" href="{% url 'driver_ride' trip.id %}">View Detail</a><br>
+                        {% if trip.TripStatus == "0" %}
+                        <a class="btn btn-primary my-2" href="{% url 'start_ride' trip.id %}">Start Ride</a>
+                        <a class="btn btn-primary my-2" href="{% url 'delete_ride' trip.id %}">Cancel Ride</a>
+                        {% elif trip.TripStatus == "1" %}
+                        <a class="btn btn-primary my-2" href="{% url 'complete_ride' trip.id %}">End the Ride</a>
+                        {% endif %}
+                        </td>
                         </tr>
                     {% endfor %}
                 </tbody>
