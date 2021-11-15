@@ -118,14 +118,6 @@ def activate(request, uidb64, token):
         user.is_active = True
         user.save()
         res="Thank you for your email confirmation. Now you can login your account."
-<<<<<<< HEAD
-        context={'res':res}
-        return render(request,'userAccount/auth.html',context)
-    else:
-        res="Activation link is invalid!"
-        context={'res':res}
-        return render(request,'userAccount/auth.html',context)
-=======
     else:
         res="Activation link is invalid!"
     context={'res':res}
@@ -149,4 +141,3 @@ def changepass(request,pk):
             return redirect('change_pass')
     
     return render(request,'userAccount/changepass.html')
->>>>>>> notificationConfig
