@@ -69,7 +69,7 @@ def acceptRequest(request,pk):
 @login_required
 @allowed_users(allowed_role=['Driver'])
 def rejectRequest(request,pk):
-    rideRequest=UserTrip.objects.filter(pk=pk)
+    rideRequest=UserTrip.objects.get(pk=pk)
     rideRequest.requestStatus=2
     sender = UserModel.objects.get(username=request.user)
     recipient = UserModel.objects.get(pk=rideRequest.passenger.id)
